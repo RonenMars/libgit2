@@ -20,12 +20,14 @@ let package = Package(
                 ".github", ".devcontainer", ".vscode",
                 "src/util/git2_features.h.in",
                 "deps/clar",
-                "deps/winhttp", "deps/llhttp", "deps/pcre", "deps/pcre2",
+                "deps/winhttp", "deps/ntlmclient",
                 "src/libgit2/git2.rc",
             ],
             sources: [
                 "src/libgit2",
                 "src/util",
+                "deps/llhttp",
+                "deps/pcre",
                 "deps/xdiff",
                 "deps/zlib",
             ],
@@ -33,6 +35,8 @@ let package = Package(
             cSettings: [
                 .headerSearchPath("src/libgit2"),
                 .headerSearchPath("src/util"),
+                .headerSearchPath("deps/llhttp"),
+                .headerSearchPath("deps/pcre"),
                 .headerSearchPath("deps/xdiff"),
                 .headerSearchPath("deps/zlib"),
             ]
