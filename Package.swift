@@ -19,6 +19,7 @@ let package = Package(
                 "docs", "examples", "tests", "fuzzers", "benchmarks",
                 ".github", ".devcontainer", ".vscode",
                 "src/util/git2_features.h.in",
+                "src/util/win32",
                 "deps/clar",
                 "deps/winhttp", "deps/ntlmclient",
                 "src/libgit2/git2.rc",
