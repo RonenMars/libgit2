@@ -21,11 +21,12 @@
 /* Compression — builtin zlib */
 #define GIT_COMPRESSION_BUILTIN 1
 
-/* HTTP parser — builtin */
-#define GIT_HTTPPARSER_BUILTIN 1
+/* HTTP parser — llhttp (deps/llhttp) */
+#define GIT_HTTPPARSER_LLHTTP 1
 
-/* Regex — builtin */
-#define GIT_REGEX_BUILTIN 1
+/* Regex — pcre (deps/pcre) */
+#define GIT_REGEX_PCRE 1
+#define GIT_REGEX_PCRE_JIT 0
 
 /* HTTPS — disabled */
 /* #define GIT_HTTPS 1 */
