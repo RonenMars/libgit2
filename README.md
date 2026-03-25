@@ -1,3 +1,51 @@
+# RonenMars/libgit2 — SPM fork
+
+This is a fork of [libgit2/libgit2](https://github.com/libgit2/libgit2) with **Swift Package Manager support** added for use as a dependency from iOS and macOS Swift packages. It is the C backend for [RonenMars/Gitty](https://github.com/RonenMars/Gitty), a modern Swift libgit2 wrapper.
+
+## What this fork adds
+
+Two files are added on top of the upstream libgit2 source tree:
+
+| File | Purpose |
+|---|---|
+| `Package.swift` | SPM manifest exposing all libgit2 C sources as a single Swift target |
+| `src/util/git2_features.h` | Hand-written replacement for the CMake-generated feature header |
+
+No upstream C source files are modified except two targeted renames required for macOS 26 SDK compatibility (see below).
+
+## SPM build configuration
+
+The `Package.swift` is tuned for **zero external system dependencies**:
+
+- **HTTP parser**: llhttp (bundled at `deps/llhttp`)
+- **Regex**: PCRE (bundled at `deps/pcre`)
+- **SHA1**: SHA1DC collision-detecting builtin
+- **SHA256**: builtin
+- **Compression**: bundled zlib (`deps/zlib`)
+- **HTTPS**: disabled
+- **SSH**: disabled
+- **Threads**: pthreads
+
+`src/util/git2_features.h` encodes these choices in the `#define` flags that libgit2 uses internally.
+
+## Source-level patches
+
+Two C files were patched to avoid a name collision with `struct entry` defined in the macOS 26 SDK `<search.h>`:
+
+- `src/libgit2/indexer.c` — local `struct entry` renamed to `struct git_indexer_entry`
+- `deps/xdiff/xpatience.c` — local `struct entry` renamed to `struct xdiff_patience_entry`
+
+A stub file `src/libgit2/spm_stubs.c` provides no-op implementations of three init functions that `libgit2.c` references unconditionally in its `init_fns[]` array even when their backends are disabled:
+- `git_mbedtls_stream_global_init`
+- `git_openssl_stream_global_init`
+- `git_transport_ssh_libssh2_global_init`
+
+## Release tags
+
+Tags follow the pattern `1.9.x` and are based on upstream libgit2 v1.9. The current stable tag for use in Gitty is **1.9.14**.
+
+---
+
 libgit2 - the Git linkable library
 ==================================
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9609/badge)](https://www.bestpractices.dev/projects/9609)
