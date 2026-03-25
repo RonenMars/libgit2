@@ -46,11 +46,9 @@
 #  define GIT_NSEC_MTIM 1
 #endif
 
-/* i18n — Apple only */
-#ifdef __APPLE__
-#  define GIT_I18N 1
-#  define GIT_I18N_ICONV 1
-#endif
+/* i18n — disabled (avoids iconv linker dependency in SPM builds) */
+/* #define GIT_I18N 1 */
+/* #define GIT_I18N_ICONV 1 */
 
 /* Architecture */
 #if defined(__LP64__) || defined(_WIN64)
