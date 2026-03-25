@@ -64,10 +64,8 @@
 #  define GIT_FUTIMENS 1
 #endif
 
-/* Randomness */
-#ifdef __APPLE__
-#  define GIT_RAND_GETENTROPY 1
-#endif
+/* Randomness — use /dev/urandom fallback (getentropy requires sys/random.h include) */
+/* #define GIT_RAND_GETENTROPY 1 */
 
 /* I/O */
 #ifndef _WIN32
